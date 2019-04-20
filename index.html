@@ -26,7 +26,8 @@
         <button type="button" onclick="sendMsg()">Send</button>
     </div>
 <script>
-    var socket = new WebSocket("ws://websockets-testing.herokuapp.com/");
+    var HOST = location.origin.replace(/^http/, 'ws')
+    var socket = new WebSocket(HOST);
     var name = prompt("What's your name?")
 
     socket.onopen = (event) => {
