@@ -13,7 +13,6 @@
   "author": "Justin",
   "license": "MIT",
   "dependencies": {
-    "bufferutil": "4.0.1",
     "express": "^4.16.4",
     "node-gyp-build": "^3.8.0",
     "utf-8-validate": "5.0.2",
