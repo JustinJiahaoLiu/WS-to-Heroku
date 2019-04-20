@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>WebSockets Lab - Justin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <style>
         .container{
             width:400px;
@@ -23,8 +27,14 @@
 
     <div class="messageBox">
         <input type="text" name="message" value="" placeholder="Enter message here" onkeydown="pressEnter(this)" >
-        <button type="button" onclick="sendMsg()">Send</button>
+        <button class="btn btn-primary" id="messageBtn" type="button" onclick="sendMsg()">Send</button>
     </div>
+
+    <br/>
+    <div class="messageBox" id="gameBox">
+        <button class="btn btn-secondary" type="button" onclick="gameStart()">Game Start</button>
+    </div>
+
 <script>
     var HOST = location.origin.replace(/^http/, 'ws')
     var socket = new WebSocket(HOST);
@@ -45,9 +55,35 @@
         //console.log(event);
         var json = JSON.parse(event.data);
 
-        var elem = document.createElement("li");
-        elem.innerHTML = json.name + ": " + json.data;
-        document.querySelector(".container").appendChild(elem);
+        /*------------Game Mode------------------*/
+        if(json.type == "game"){
+            //Disable game button!!
+            document.querySelector("#gameBox").style.display = "none";
+            //Set message to game mode
+            document.querySelector("#messageBtn").setAttribute('onclick','gameMsg()');
+            //Exit game mode after 20s
+            setTimeout(()=>{
+                document.querySelector("#messageBtn").setAttribute('onclick','sendMsg()');
+            }, 20000);
+
+            let elem = document.createElement("h3");
+            elem.innerHTML = json.data;
+            document.querySelector(".container").appendChild(elem);
+
+        }else{
+        /*------------Message Mode------------------*/
+            //when client left
+            if(json.data == "left"){
+                let elem = document.createElement("p");
+                elem.innerHTML = json.name + " has left";
+                document.querySelector(".container").appendChild(elem);
+            }else{
+                //normal message
+                var elem = document.createElement("li");
+                elem.innerHTML = json.name + ": " + json.data;
+                document.querySelector(".container").appendChild(elem);
+            }
+        }
 
     }
 
@@ -71,11 +107,44 @@
         document.querySelector("input").focus();
     }
 
+    function gameMsg(){
+
+        //Get the message from input
+        var msg = document.querySelector("input").value;
+
+        //Add the message to screen locally
+        var elem = document.createElement("li");
+        elem.innerHTML = "You: " + msg;
+        document.querySelector(".container").appendChild(elem);
+
+        //Send the msg to server
+        socket.send(JSON.stringify({
+            type: 'game',
+            data: msg
+        }));
+        document.querySelector("input").value = "";
+        document.querySelector("input").focus();
+    }
+
+    function gameStart(){
+        socket.send(JSON.stringify({
+            type: 'game',
+            data: "this-will-activate-game-mode"
+        }));
+        document.querySelector("#gameBox").style.display = "none";
+    }
+
     function pressEnter(ele) {
         if(event.key === 'Enter') {
-            sendMsg();
+            if(document.querySelector("#messageBtn").getAttribute('onclick') == 'gameMsg()'){
+                gameMsg();
+
+            }else{
+                sendMsg();
+            }
         }
     }
+
 
 
 
