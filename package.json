@@ -1,0 +1,32 @@
+{
+  "name": "wsserver",
+  "version": "1.0.0",
+  "description": "no desc",
+  "main": "index.js",
+  "engines": {
+    "node": "10.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Justin",
+  "license": "MIT",
+  "dependencies": {
+    "bufferutil": "4.0.1",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.11",
+    "utf-8-validate": "5.0.2",
+    "ws": "6.2.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustinJiahaoLiu/WS-to-Heroku.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/JustinJiahaoLiu/WS-to-Heroku/issues"
+  },
+  "homepage": "https://github.com/JustinJiahaoLiu/WS-to-Heroku#readme"
+}

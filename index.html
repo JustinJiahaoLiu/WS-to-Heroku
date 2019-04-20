@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebSockets Lab - Justin</title>
+    <style>
+        .container{
+            width:400px;
+            height: 400px;
+            margin: auto;
+            border: solid black 1px;
+        }
+        .messageBox {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+    </div>
+
+    <div class="messageBox">
+        <input type="text" name="message" value="" placeholder="Enter message here" onkeydown="pressEnter(this)" >
+        <button type="button" onclick="sendMsg()">Send</button>
+    </div>
+<script>
+    var socket = new WebSocket("ws://localhost:3000");
+    var name = prompt("What's your name?")
+
+    socket.onopen = (event) => {
+        console.log('Socket Open!');
+        socket.send(JSON.stringify({
+            type:'name',
+            data: name
+        }));
+        // setTimeout(function () {
+        //     socket.send('Hey there');
+        // }, 1000)
+    };
+
+    socket.onmessage = (event) =>{
+        //console.log(event);
+        var json = JSON.parse(event.data);
+
+        var elem = document.createElement("li");
+        elem.innerHTML = json.name + ": " + json.data;
+        document.querySelector(".container").appendChild(elem);
+
+    }
+
+
+    function sendMsg(){
+
+        //Get the message from input
+        var msg = document.querySelector("input").value;
+
+        //Add the message to screen locally
+        var elem = document.createElement("li");
+        elem.innerHTML = "You: " + msg;
+        document.querySelector(".container").appendChild(elem);
+
+        //Send the msg to server
+        socket.send(JSON.stringify({
+            type: 'message',
+            data: msg
+        }));
+        document.querySelector("input").value = "";
+        document.querySelector("input").focus();
+    }
+
+    function pressEnter(ele) {
+        if(event.key === 'Enter') {
+            sendMsg();
+        }
+    }
+
+
+
+</script>
+</body>
+</html>
