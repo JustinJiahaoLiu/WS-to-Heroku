@@ -26,7 +26,7 @@
         <button type="button" onclick="sendMsg()">Send</button>
     </div>
 <script>
-    var socket = new WebSocket("ws://localhost:3000");
+    var socket = new WebSocket("ws://websockets-testing.herokuapp.com/");
     var name = prompt("What's your name?")
 
     socket.onopen = (event) => {
