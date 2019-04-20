@@ -4,7 +4,7 @@
   "description": "no desc",
   "main": "index.js",
   "engines": {
-    "node": "10.3.0"
+    "node": "10.14.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
