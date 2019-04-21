@@ -16,6 +16,7 @@ const s = new SocketServer({ server });
 
 /*---------server global setting----------*/
 var id_count = 0;
+var game_state = 999;	//Game state starts with 100
 
 
 
@@ -29,31 +30,66 @@ s.on('connection', function(ws) {
     /*---------on Message----------*/
     ws.on('message', function (message) {
         message = JSON.parse(message);  //Convert string to JS object
-        //console.log("Received: " + message);
-        //console.log(message.type == 'name'? 'True': 'False');
         console.log(message);
 
 
         /*------------Game Mode-------------*/
         if(message.type == "game"){
-        	if(message.data == "this-will-activate-game-mode"){
+        	if(message.data == "this-will-activate-game-mode" && message.id == 99){
+        		game_state = 100;  //Game starts here!!
         		//Travse all clients
         		s.clients.forEach(function (client){
                 	client.send(JSON.stringify({
-                		id: '',
+                		id: game_state,
                 		type: 'game',
-                    	name: 'server', //send the connection name
+                    	name: 'server',
                     	data: 'How many degrees are found in a circle?'
                 	}));
         		});
-        	}
+        		
+        		//Exit game mode after 20s
+		        setTimeout(()=>{
+		            //Travse all clients
+        		s.clients.forEach(function (client){
+                	client.send(JSON.stringify({
+                		id: game_state,
+                		type: 'gameExit',
+                    	name: 'server',
+                    	data: 'Turn off game mode'
+                	}));
+        		});
+
+        		//Game state change to 101
+        		game_state++;
+		        }, 20000);
+		        }
 
 		}else{
 		/*------------Message Mode-------------*/
 	        //Fetch name of client
 	        if(message.type == 'name'){
-	            ws.personName = message.data;
-	            console.log("Client Name: " + ws.personName);
+
+	        	ws.personName = message.data;	//assign name to ws connection
+
+	        	//check name duplication
+	        	s.clients.forEach(function (client){
+	        		
+	        		if(client.personName == message.data && client != ws){	//exclude itself
+
+	        			ws.personName = message.data + "." + ws.clientId;	//add client id to duplicated name
+
+	        		}
+	        	});
+	            
+	            //console.log("Client Name: " + ws.personName);
+
+	            //send game state back to front end
+	            ws.send(JSON.stringify({
+	            	id: game_state,
+            		type: 'game',
+                	name: 'server', 
+                	data: ''
+	            }));
 	            return;
 	        }
 
