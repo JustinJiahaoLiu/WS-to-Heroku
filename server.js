@@ -5,13 +5,14 @@ const SocketServer = require('ws').Server;
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
+//const INDEX = path.join(__dirname, 'index.html');
 
+//create an express http server as the base
 const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
+  .use(express.static(__dirname + '/public'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-//Server instance
+//create WS server based on http server
 const s = new SocketServer({ server });
 
 /*---------server global setting----------*/

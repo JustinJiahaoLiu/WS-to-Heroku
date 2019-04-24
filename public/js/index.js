@@ -1,7 +1,7 @@
-
-var HOST = location.origin.replace(/^http/, 'ws')
+var HOST = location.origin.replace(/^http/, 'ws');
+var name = prompt("What's your name?");
 var socket = new WebSocket(HOST);
-var name = prompt("What's your name?")
+
 
 
 /*----------------------State Setting-----------------------------*/
@@ -26,24 +26,29 @@ socket.onopen = (event) => {
 socket.onmessage = (event) =>{
     //console.log(event);
     var json = JSON.parse(event.data);
+    //console.log(json);
 
     /*------------Game Mode------------------*/
-    if(json.type == "game" && json.id != 999){
-        //Disable game button!!
-        document.querySelector("#gameBox").style.display = "none";
-        //Set message to game mode
-        document.querySelector("#messageBtn").setAttribute('onclick','gameMsg()');
+    if(json.type == "game"){
+        if(json.id != 999){
+            //Disable game button!!
+            document.querySelector("#gameBox").style.display = "none";
+            //Set message to game mode
+            document.querySelector("#messageBtn").setAttribute('onclick','gameMsg()');
 
-        let elem = document.createElement("h3");
-        elem.innerHTML = json.data;
-        document.querySelector(".container").appendChild(elem);
+            let elem = document.createElement("h3");
+            elem.innerHTML = json.data;
+            document.querySelector(".container").appendChild(elem);
+        }else{
+            return; //new user joins under message mode
+        }
 
     }else if(json.type == "gameExit"){
-        
+
         gameExit();  //Turn off game mode
 
     }else{
-    /*------------Message Mode------------------*/
+        /*------------Message Mode------------------*/
         //when client left
         if(json.data == "left"){
             let elem = document.createElement("p");
@@ -121,4 +126,3 @@ function pressEnter(ele) {
         }
     }
 }
-
