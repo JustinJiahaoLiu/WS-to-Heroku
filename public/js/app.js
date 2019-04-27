@@ -50,7 +50,7 @@ socket.onmessage = (event) =>{
     }else{
         /*------------Message Mode------------------*/
         //when client left
-        if(json.data == "left"){
+        if(json.type == "message" && json.data == "left"){
             let elem = document.createElement("p");
             elem.innerHTML = json.name + " has left";
             document.querySelector(".container").appendChild(elem);

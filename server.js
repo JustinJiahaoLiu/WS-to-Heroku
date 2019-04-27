@@ -83,12 +83,8 @@ s.on('connection', function(ws) {
 	        	});
 	            
 	            //send game state back to front end
-	            ws.send(JSON.stringify({
-	            	id: game_state,
-            		type: 'game',
-                	name: 'server', 
-                	data: ''
-	            }));
+                let gameState = new Message(game_state,'game','server','').stringify();
+	            ws.send(gameState);
 	            return;
 	        }else{
 
@@ -102,8 +98,8 @@ s.on('connection', function(ws) {
     /*---------on Close----------*/
     ws.on('close', function(){
         console.log("I lost a client");
-        let clientLeft = new Message(ws.clientId,'message',ws.personName,'left');
-        broadcast(clientLeft);
+        var clientLeft = new Message(ws.clientId,'message',ws.personName,'left').stringify();
+        forward(clientLeft);        
     });
 
     /*---------Function Declaration---------*/
