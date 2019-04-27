@@ -1,9 +1,7 @@
 'use strict';
-
 const express = require('express');
 const SocketServer = require('ws').Server;
 const path = require('path');
-
 const PORT = process.env.PORT || 3000;
 //const INDEX = path.join(__dirname, 'index.html');
 
@@ -14,6 +12,11 @@ const server = express()
 
 //create WS server based on http server
 const s = new SocketServer({ server });
+
+//custom components
+const Message = require('./core/Message');
+
+
 
 /*---------server global setting----------*/
 var id_count = 0;
@@ -27,43 +30,40 @@ s.on('connection', function(ws) {
     ws.clientId = id_count;
     id_count++;
     ws.personName = "";
+    var gameCountDown;
+
+    var puzzle = {
+        question: "How many degrees are found in a circle?",
+        answer: "360"
+    }
 
     /*---------on Message----------*/
     ws.on('message', function (message) {
         message = JSON.parse(message);  //Convert string to JS object
         console.log(message);
 
-
         /*------------Game Mode-------------*/
         if(message.type == "game"){
         	if(message.data == "this-will-activate-game-mode" && message.id == 99){
         		game_state = 100;  //Game starts here!!
-        		//Travse all clients
-        		s.clients.forEach(function (client){
-                	client.send(JSON.stringify({
-                		id: game_state,
-                		type: 'game',
-                    	name: 'server',
-                    	data: 'How many degrees are found in a circle?'
-                	}));
-        		});
-        		
-        		//Exit game mode after 20s
-		        setTimeout(()=>{
-		            //Travse all clients
-        		s.clients.forEach(function (client){
-                	client.send(JSON.stringify({
-                		id: game_state,
-                		type: 'gameExit',
-                    	name: 'server',
-                    	data: 'Turn off game mode'
-                	}));
-        		});
+                let question1 = new Message(game_state,'game','server',puzzle.question).stringify();
+        		broadcast(question1);
+                gameExit();
+		    }else{
+                let msgToOthers = new Message(ws.clientId,'message',ws.personName,message.data).stringify();
+                forward(msgToOthers);
+                //check if clients got the right answer
+                if(message.data == puzzle.answer){
+                    let winNote = new Message(game_state,'game','server',ws.personName+' got the right answer!').stringify();
+                    let forceGameOver = new Message(game_state,'gameExit','server','Turn off game mode').stringify();
 
-        		//Game state change to 101
-        		game_state++;
-		        }, 20000);
-		        }
+                    //cancel setTimout loop, turn off game mode and broadcast winner
+                    clearTimeout(gameCountDown);
+                    broadcast(forceGameOver);
+                    broadcast(winNote);
+                    
+                }
+            }
 
 		}else{
 		/*------------Message Mode-------------*/
@@ -82,8 +82,6 @@ s.on('connection', function(ws) {
 	        		}
 	        	});
 	            
-	            //console.log("Client Name: " + ws.personName);
-
 	            //send game state back to front end
 	            ws.send(JSON.stringify({
 	            	id: game_state,
@@ -92,35 +90,46 @@ s.on('connection', function(ws) {
                 	data: ''
 	            }));
 	            return;
-	        }
+	        }else{
 
-	        //Travse all clients
-	        s.clients.forEach(function (client){
-	            //Exclude the sender
-	            if(client != ws) {
-	                client.send(JSON.stringify({
-	                	id: ws.clientId,
-	                	type: 'message',
-	                    name: ws.personName, //send the connection name
-	                    data: message.data
-	                }));
-	            }
-	        });
-
+                //Forward message to others
+                let msgToOthers = new Message(ws.clientId,'message',ws.personName,message.data).stringify();
+	            forward(msgToOthers);
+            }
        	}
     });
 
     /*---------on Close----------*/
     ws.on('close', function(){
         console.log("I lost a client");
+        let clientLeft = new Message(ws.clientId,'message',ws.personName,'left');
+        broadcast(clientLeft);
+    });
+
+    /*---------Function Declaration---------*/
+    function gameExit(){       //Exit game mode after 20s
+        gameCountDown = setTimeout(()=>{
+            let gameOver = new Message(game_state,'gameExit'
+                ,'server','Turn off game mode').stringify();
+            broadcast(gameOver);
+        }, 20000);
+    }
+
+    function broadcast(msg){
         //Travse all clients
         s.clients.forEach(function (client){
-                client.send(JSON.stringify({
-                	id: ws.clientId,
-                    name: ws.personName, //send the connection name
-                    data: 'left'
-                }));
+            client.send(msg);
         });
-    })
+    }
+
+    function forward(msg){
+        //Travse all clients
+            s.clients.forEach(function (client){
+                //Exclude the sender
+                if(client != ws) {
+                    client.send(msg);
+                }
+            });
+    }
 
 });

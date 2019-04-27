@@ -24,7 +24,7 @@ socket.onopen = (event) => {
 };
 
 socket.onmessage = (event) =>{
-    //console.log(event);
+    console.log(event);
     var json = JSON.parse(event.data);
     //console.log(json);
 
