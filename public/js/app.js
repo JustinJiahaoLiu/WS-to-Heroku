@@ -11,31 +11,36 @@ var socket = new WebSocket(HOST);
 
 
 
-
+//Send client name to srever
 socket.onopen = (event) => {
     console.log('Socket Open!');
     socket.send(JSON.stringify({
         type:'name',
         data: name
     }));
-    // setTimeout(function () {
-    //     socket.send('Hey there');
-    // }, 1000)
 };
+
 
 socket.onmessage = (event) =>{
     console.log(event);
     var json = JSON.parse(event.data);
     //console.log(json);
 
+    //scroll chat box to bottom
+    var chatBox = document.querySelector(".container");
+    chatBox.scrollTop = chatBox.scrollHeight;
+
     /*------------Game Mode------------------*/
     if(json.type == "game"){
-        if(json.id != 999){
+
+        if(json.id != 999 && !(json.id % 100)){
             //Disable game button!!
             document.querySelector("#gameBox").style.display = "none";
             //Set message to game mode
             document.querySelector("#messageBtn").setAttribute('onclick','gameMsg()');
+            //check the current steps of the game status
 
+            //show the questions once its from server
             let elem = document.createElement("h3");
             elem.innerHTML = json.data;
             document.querySelector(".container").appendChild(elem);
@@ -48,7 +53,7 @@ socket.onmessage = (event) =>{
         gameExit();  //Turn off game mode
 
     }else{
-        /*------------Message Mode------------------*/
+    /*------------Message Mode------------------*/
         //when client left
         if(json.type == "message" && json.data == "left"){
             let elem = document.createElement("p");
@@ -82,6 +87,10 @@ function sendMsg(){
     }));
     document.querySelector("input").value = "";
     document.querySelector("input").focus();
+
+    //scroll chat box to bottom
+    var chatBox = document.querySelector(".container");
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function gameMsg(){
@@ -101,13 +110,17 @@ function gameMsg(){
     }));
     document.querySelector("input").value = "";
     document.querySelector("input").focus();
+
+    //scroll chat box to bottom
+    var chatBox = document.querySelector(".container");
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function gameStart(){
     socket.send(JSON.stringify({
-        id: 99,
+        id: 99,        //secret id to initial game mode
         type: 'game',
-        data: "this-will-activate-game-mode"
+        data: "this-will-activate-game-mode"        //secret key
     }));
     document.querySelector("#gameBox").style.display = "none";
 }

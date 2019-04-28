@@ -20,8 +20,8 @@ const Message = require('./core/Message');
 
 /*---------server global setting----------*/
 var id_count = 0;
-var game_state = 999;	//Game state starts with 100
-
+var game_state = 999;	//Game state starts with 100, then 200, 300, 400 up to 500
+var game_saving = 32;    //binary 100000
 
 
 //--------------Connection Success----------------------
@@ -31,7 +31,7 @@ s.on('connection', function(ws) {
     id_count++;
     ws.personName = "";
     var gameCountDown;
-
+    
     var puzzle = {
         question: "How many degrees are found in a circle?",
         answer: "360"
@@ -46,22 +46,41 @@ s.on('connection', function(ws) {
         if(message.type == "game"){
         	if(message.data == "this-will-activate-game-mode" && message.id == 99){
         		game_state = 100;  //Game starts here!!
-                let question1 = new Message(game_state,'game','server',puzzle.question).stringify();
+                let question1 = new Message(game_state,'game','server',puzzle.question, game_saving).stringify();
         		broadcast(question1);
-                gameExit();
-		    }else{
-                let msgToOthers = new Message(ws.clientId,'message',ws.personName,message.data).stringify();
+                gameExit();    //turn off game mode in 20s
+		    }else if (!(game_state%100)){    //if it's 100, 200, 300, 400, 500
+                let msgToOthers = new Message(ws.clientId,'message',ws.personName,message.data, game_saving).stringify();
                 forward(msgToOthers);
                 //check if clients got the right answer
                 if(message.data == puzzle.answer){
-                    let winNote = new Message(game_state,'game','server',ws.personName+' got the right answer!').stringify();
-                    let forceGameOver = new Message(game_state,'gameExit','server','Turn off game mode').stringify();
+                    game_state = game_state + 100;   //go to next level  
+                    //save game 
+                    switch(game_saving){
+                        case 100:
+                        game_saving = game_saving | 16;    //game_saving to 110000
+                        break;
+                        case 200:
+                        game_saving = game_saving | 8;    //111000
+                        break;
+                        case 300:
+                        game_saving = game_saving | 4;    //111100
+                        break;
+                        case 400:
+                        game_saving = game_saving | 2;    //111110
+                        break;
+                        case 500:
+                        game_saving = game_saving | 1;    //111111
+                        break
+                    }
+
+                    let winNote = new Message(game_state,'game','server',(ws.personName).concat(' got the right answer!'), game_saving).stringify();
+                    let forceGameOver = new Message(game_state,'gameExit','server','Turn off game mode', game_saving).stringify();
 
                     //cancel setTimout loop, turn off game mode and broadcast winner
                     clearTimeout(gameCountDown);
                     broadcast(forceGameOver);
-                    broadcast(winNote);
-                    
+                    broadcast(winNote);              
                 }
             }
 
@@ -83,13 +102,13 @@ s.on('connection', function(ws) {
 	        	});
 	            
 	            //send game state back to front end
-                let gameState = new Message(game_state,'game','server','').stringify();
+                let gameState = new Message(game_state,'game','server','',game_saving).stringify();
 	            ws.send(gameState);
 	            return;
 	        }else{
 
                 //Forward message to others
-                let msgToOthers = new Message(ws.clientId,'message',ws.personName,message.data).stringify();
+                let msgToOthers = new Message(ws.clientId,'message',ws.personName,message.data,game_saving).stringify();
 	            forward(msgToOthers);
             }
        	}
@@ -98,15 +117,15 @@ s.on('connection', function(ws) {
     /*---------on Close----------*/
     ws.on('close', function(){
         console.log("I lost a client");
-        var clientLeft = new Message(ws.clientId,'message',ws.personName,'left').stringify();
+        var clientLeft = new Message(ws.clientId,'message',ws.personName,'left',game_saving).stringify();
         forward(clientLeft);        
     });
 
     /*---------Function Declaration---------*/
     function gameExit(){       //Exit game mode after 20s
         gameCountDown = setTimeout(()=>{
-            let gameOver = new Message(game_state,'gameExit'
-                ,'server','Turn off game mode').stringify();
+             game_state = game_state + 100;   //go to next level
+            let gameOver = new Message(game_state,'gameExit','server','Turn off game mode',game_saving).stringify();
             broadcast(gameOver);
         }, 20000);
     }
