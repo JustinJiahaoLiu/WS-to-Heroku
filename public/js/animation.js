@@ -4,7 +4,7 @@
 // UP UP DOWN ODWN LEFT RIGHT LEFT RIGHT A B
 // to trigger the confetti with a random color theme.
 // Otherwise the confetti constantly falls.
-var onlyOnKonami = false;
+var onlyOnKonami = true;
 
 function confeON() {
   // Globals
@@ -120,7 +120,6 @@ function confeON() {
   container.style.height   = '0';
   container.style.overflow = 'visible';
   container.style.zIndex   = '9999';
-  container.id = "confetti";
 
   // Confetto constructor
   function Confetto(theme) {
@@ -237,9 +236,6 @@ function confeON() {
 
 
   
-  if (!onlyOnKonami) poof();
+  poof();
 }
 
-function confeOFF() {
-  $("#confetti").remove();
-}
