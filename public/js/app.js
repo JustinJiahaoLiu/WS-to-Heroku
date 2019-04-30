@@ -26,10 +26,6 @@ socket.onmessage = (event) =>{
     var json = JSON.parse(event.data);
     //console.log(json);
 
-    //scroll chat box to bottom
-    var chatBox = document.querySelector(".container");
-    chatBox.scrollTop = chatBox.scrollHeight;
-
     /*------------Game Mode------------------*/
     if(json.type == "game"){
 
@@ -67,6 +63,8 @@ socket.onmessage = (event) =>{
         }
     }
 
+    //scroll chat box to bottom
+    autoScrollBottom();
 }
 
 
@@ -89,8 +87,7 @@ function sendMsg(){
     document.querySelector("input").focus();
 
     //scroll chat box to bottom
-    var chatBox = document.querySelector(".container");
-    chatBox.scrollTop = chatBox.scrollHeight;
+    autoScrollBottom();
 }
 
 function gameMsg(){
@@ -112,8 +109,7 @@ function gameMsg(){
     document.querySelector("input").focus();
 
     //scroll chat box to bottom
-    var chatBox = document.querySelector(".container");
-    chatBox.scrollTop = chatBox.scrollHeight;
+    autoScrollBottom();
 }
 
 function gameStart(){
@@ -138,4 +134,10 @@ function pressEnter(ele) {
             sendMsg();
         }
     }
+}
+
+function autoScrollBottom(){
+    //scroll chat box to bottom
+    var chatBox = document.querySelector(".container");
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
