@@ -116,7 +116,7 @@ s.on('connection', function(ws) {
 
     /*---------on Close----------*/
     ws.on('close', function(){
-        console.log("I lost a client");
+        console.log(`I lost a client ${ws.personName}`);  //console.log('I lost a client ' + ws.personName);
         var clientLeft = new Message(ws.clientId,'message',ws.personName,'left',game_saving).stringify();
         forward(clientLeft);        
     });

@@ -38,6 +38,7 @@ socket.onmessage = (event) =>{
 
             //show the questions once its from server
             let elem = document.createElement("h3");
+            elem.setAttribute("class", "game");
             elem.innerHTML = json.data;
             document.querySelector(".container").appendChild(elem);
         }else{
@@ -53,11 +54,13 @@ socket.onmessage = (event) =>{
         //when client left
         if(json.type == "message" && json.data == "left"){
             let elem = document.createElement("p");
+            elem.setAttribute("class", "server");
             elem.innerHTML = json.name + " has left";
             document.querySelector(".container").appendChild(elem);
         }else{
             //normal message
             var elem = document.createElement("li");
+            elem.setAttribute("class", "others");
             elem.innerHTML = json.name + ": " + json.data;
             document.querySelector(".container").appendChild(elem);
         }
@@ -75,6 +78,7 @@ function sendMsg(){
 
     //Add the message to screen locally
     var elem = document.createElement("li");
+    elem.setAttribute("class", "myself");
     elem.innerHTML = "You: " + msg;
     document.querySelector(".container").appendChild(elem);
 
@@ -97,6 +101,7 @@ function gameMsg(){
 
     //Add the message to screen locally
     var elem = document.createElement("li");
+    elem.setAttribute("class", "myself");
     elem.innerHTML = "You: " + msg;
     document.querySelector(".container").appendChild(elem);
 
