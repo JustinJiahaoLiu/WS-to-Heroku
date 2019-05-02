@@ -4,7 +4,7 @@ var socket = new WebSocket(HOST);
 
 
 
-/*----------------------State Setting-----------------------------*/
+
 
 //-----------Game Mode---------------
 
