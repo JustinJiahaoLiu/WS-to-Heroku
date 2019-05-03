@@ -1,0 +1,111 @@
+/*hasn't implement responsive design*/
+
+body{
+	background-color: #b4b6e7;
+}
+
+.container{
+	width:400px;
+	height: 400px;
+	margin: auto;
+	margin-top: 200px;
+	padding-bottom: 10px;
+	border: solid black 1px;
+	overflow: auto;
+	display: flex;
+	flex-wrap: initial;
+	flex-direction: column;
+	border: 0.5px solid #a5a8b1;
+	background-color:  #DAD7F3;
+}
+
+
+.messageBox {
+	display: flex;
+	justify-content: center;
+
+}   
+
+.messageBox input {			/*message box*/
+	width: 320px;
+	text-align: center;
+}
+
+.btn-primary {				/*send button*/
+	width: 80px;
+	border-color: #54517d;
+	border-radius: 0;
+	background-color: #54517d;
+}
+
+.btn-primary:hover {
+	background-color: #434169;
+ 	border-color: #434169;
+}
+
+.btn-secondary {			/*game mode button*/
+	border-color: #54517d;
+	background-color: #54517d;
+	color: #f4ffff;
+}  
+
+.btn-secondary:hover {
+	background-color: #434169;
+ 	border-color: #434169;
+}
+
+.myself {					/*recipient*/
+	border-radius: 1em;
+	padding: 0.25em 0.75em;
+	margin: 0.0625em;
+	max-width: 50%;
+	align-self: flex-end;	/*the bubble start at the end of the box which in this case is right side*/
+	word-break: break-word;	/*to break the word and go vertically*/
+	background-color: #8ea2f9;
+	color: #f4ffff;
+	list-style-type: none;
+}
+
+.others {					/*sender*/
+	border-radius: 1em;
+	padding: 0.25em 0.75em;
+	margin: 0.0625em;
+	max-width: 50%;
+	align-self: flex-start;
+	word-break: break-word;
+	background-color: #fff;
+	color: #b3b2ba;
+	list-style-type: none;
+}
+
+.game {						/*game system*/
+	border-radius: 1em;
+	padding: 0.25em 0.75em;
+	margin: 0.0625em;
+	max-width: 70%;
+	align-self: center;
+	background-color: #54517d;
+	color: #fffafa;
+	font-size: 18px;
+	text-align: center;
+}
+
+.server {					/*server system*/
+	border-radius: 1em;
+	padding: 0.25em 0.5em;
+	margin: 0.0625em;
+	max-width: 50%;	
+	align-self: center;
+	text-align: center;
+	background-color:#c0c0c0;
+	color: #fff;
+	font-size: 80%;
+}
+
+input[type=text]:active, input[type=text]:focus {	/*no outline styling when the input message being click*/
+	outline: none;
+}
+
+
+
+
