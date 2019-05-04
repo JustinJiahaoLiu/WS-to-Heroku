@@ -109,11 +109,7 @@ s.on('connection', function(ws) {
 
                 //Forward message to others
                 let msgToOthers = new Message(ws.clientId,'message',ws.personName,message.data,game_saving).stringify();
-                //Only forward msg to clients alive
-                s.clients.forEach((client)=>{
-                	if(client.isAlive)
-                		forward(msgToOthers);
-                });
+                forward(msgToOthers);
 	            
             }
        	}
