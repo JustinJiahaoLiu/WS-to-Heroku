@@ -51,6 +51,14 @@ socket.onmessage = (event) =>{
 
     }else{
     /*------------Message Mode------------------*/
+        //Game annoucement
+        if(json.type == "message" && json.name == "announcement"){
+            let elem = document.createElement("h3");
+            elem.setAttribute("class", "game");
+            elem.innerHTML = json.data;
+            document.querySelector(".container").appendChild(elem);
+            return;
+        }
         //when client left
         if(json.type == "message" && json.data == "left"){
             let elem = document.createElement("p");

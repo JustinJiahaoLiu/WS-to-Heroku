@@ -54,28 +54,28 @@ s.on('connection', function(ws) {
                 forward(msgToOthers);
                 //check if clients got the right answer
                 if(message.data == puzzle.answer){
-                    game_state = game_state + 100;   //go to next level  
                     //save game 
-                    switch(game_saving){
+                    switch(game_state){
                         case 100:
-                        game_saving = game_saving | 16;    //game_saving to 110000
+                        game_saving = game_saving | 16;    //game_saving to 110000(48)
                         break;
                         case 200:
-                        game_saving = game_saving | 8;    //111000
+                        game_saving = game_saving | 8;    //111000(56)
                         break;
                         case 300:
-                        game_saving = game_saving | 4;    //111100
+                        game_saving = game_saving | 4;    //111100(60)
                         break;
                         case 400:
-                        game_saving = game_saving | 2;    //111110
+                        game_saving = game_saving | 2;    //111110(62)
                         break;
                         case 500:
-                        game_saving = game_saving | 1;    //111111
+                        game_saving = game_saving | 1;    //111111(63)
                         break
                     }
+                    game_state = game_state + 100;   //go to next level  
 
-                    let winNote = new Message(game_state,'game','server',(ws.personName).concat(' got the right answer!'), game_saving).stringify();
-                    let forceGameOver = new Message(game_state,'gameExit','server','Turn off game mode', game_saving).stringify();
+                    let winNote = new Message(999,'message','announcement',(ws.personName).concat(' got the right answer!'), game_saving).stringify();
+                    let forceGameOver = new Message(game_state,'gameExit','server','Turn off game mode',game_saving).stringify();
 
                     //cancel setTimout loop, turn off game mode and broadcast winner
                     clearTimeout(gameCountDown);
@@ -125,7 +125,7 @@ s.on('connection', function(ws) {
     /*---------Function Declaration---------*/
     function gameExit(){       //Exit game mode after 20s
         gameCountDown = setTimeout(()=>{
-             game_state = game_state + 100;   //go to next level
+            game_state = game_state + 100;   //go to next level
             let gameOver = new Message(game_state,'gameExit','server','Turn off game mode',game_saving).stringify();
             broadcast(gameOver);
         }, 20000);
