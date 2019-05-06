@@ -51,11 +51,11 @@ socket.onmessage = (event) =>{
 
     }else{
     /*------------Message Mode------------------*/
-        //Game annoucement
+        //Game announcement
         if(json.type == "message" && json.name == "announcement"){
             let elem = document.createElement("h3");
             elem.setAttribute("class", "game");
-            elem.innerHTML = json.data;
+            elem.innerHTML = "&#127881;" + json.data + "&#127881;";
             document.querySelector(".container").appendChild(elem);
             return;
         }
@@ -83,6 +83,12 @@ function sendMsg(){
 
     //Get the message from input
     var msg = document.querySelector("input").value;
+	
+	//Msg validation
+	if(msg == ""){
+		document.querySelector("input").focus();
+		return;
+	}
 
     //Add the message to screen locally
     var elem = document.createElement("li");
