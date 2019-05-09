@@ -44,8 +44,8 @@ s.on('connection', function(ws) {
 
         /*------------Game Mode-------------*/
         if(message.type == "game"){
-        	if(message.data == "this-will-activate-game-mode" && message.id == 99){
-        		game_state = 100;  //Game starts here!!
+        	if(message.data == "this-will-activate-game-mode" && (message.id == 1 ||!((message.id-1)%100))){
+        		game_state = (message.id - 1) + 100;  //Game starts here!!
                 let question1 = new Message(game_state,'game','server',puzzle.question, game_saving).stringify();
         		broadcast(question1);
                 gameExit();    //turn off game mode in 20s
@@ -81,8 +81,8 @@ s.on('connection', function(ws) {
                     //cancel setTimout loop, turn off game mode and broadcast winner
                     clearTimeout(gameCountDown);
                     console.log("Countdown cancelled...");
-                    broadcast(forceGameOver);
-                    broadcast(winNote);              
+                    broadcast(forceGameOver);            //send x01
+                    broadcast(winNote);                //send 999 
                 }
             }
 

@@ -1,7 +1,7 @@
 var HOST = location.origin.replace(/^http/, 'ws');
 var name = prompt("What's your name?");
 var socket = new WebSocket(HOST);
-var json;
+var game_state;
 
 
 
@@ -23,7 +23,7 @@ socket.onopen = (event) => {
 
 socket.onmessage = (event) =>{
     console.log(event);
-    json = JSON.parse(event.data);
+    var json = JSON.parse(event.data);
     //console.log(json);
 
     /*------------Game Mode------------------*/
@@ -43,6 +43,7 @@ socket.onmessage = (event) =>{
             document.querySelector(".container").appendChild(elem);
         }else if(!((json.id - 1) % 100)){    //game intervel
             console.log("We are in");
+            game_state = json.id;
             gameExit();
             //Show next button!!
             document.querySelector("#gameBoxNext").style.display = "block";
@@ -63,6 +64,7 @@ socket.onmessage = (event) =>{
             elem.setAttribute("class", "game");
             elem.innerHTML = "&#127881;" + json.data + "&#127881;";
             document.querySelector(".container").appendChild(elem);
+            autoScrollBottom();	//Autoscroll
             return;
         }
         //when client left
@@ -139,7 +141,7 @@ function gameMsg(){
 
 function gameStart(){
     socket.send(JSON.stringify({
-        id: 99,        //secret id to initial game mode
+        id: 1,        //secret id to initial game mode
         type: 'game',
         data: "this-will-activate-game-mode"        //secret key
     }));
@@ -147,11 +149,11 @@ function gameStart(){
 }
 
 function gameContinue(){
-     var gameId = json.id + 99;       //go to next level
+     var gameId = game_state;       //go to next level
     socket.send(JSON.stringify({
         id: gameId,        //secret id to initial game mode
         type: 'game',
-        data: "this-will-activate-next-game"        //secret key
+        data: "this-will-activate-game-mode"        //secret key
     }));
     document.querySelector("#gameBoxNext").style.display = "none";
 }
