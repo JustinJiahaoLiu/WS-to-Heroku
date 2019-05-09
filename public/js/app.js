@@ -29,7 +29,7 @@ socket.onmessage = (event) =>{
     /*------------Game Mode------------------*/
     if(json.type == "game"){
 
-        if(json.id != 999 && !(json.id % 100)){
+        if(json.id != 999 && !(json.id % 100)){    //if id = 100, 200, 300, 400...
             //Disable game button!!
             document.querySelector("#gameBox").style.display = "none";
             //Set message to game mode
@@ -41,6 +41,11 @@ socket.onmessage = (event) =>{
             elem.setAttribute("class", "game");
             elem.innerHTML = json.data;
             document.querySelector(".container").appendChild(elem);
+        }else if(!((json.id - 1) % 100)){    //game intervel
+            console.log("We are in");
+
+            gameContinue();
+
         }else{
             return; //new user joins under message mode
         }
@@ -138,6 +143,16 @@ function gameStart(){
         data: "this-will-activate-game-mode"        //secret key
     }));
     document.querySelector("#gameBox").style.display = "none";
+}
+
+function gameContinue(){
+    var gameId = json.id + 99;       //go to next level
+    socket.send(JSON.stringify({
+        id: gameId,        //secret id to initial game mode
+        type: 'game',
+        data: "this-will-activate-next-game"        //secret key
+    }));
+    document.querySelector("#gameBoxNext").style.display = "none";
 }
 
 function gameExit(){

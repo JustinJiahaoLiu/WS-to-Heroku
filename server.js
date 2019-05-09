@@ -30,7 +30,7 @@ s.on('connection', function(ws) {
     ws.clientId = id_count;
     id_count++;
     ws.personName = "";
-    var gameCountDown;
+    var gameCountDown = null;
     
     var puzzle = {
         question: "How many degrees are found in a circle?",
@@ -49,6 +49,7 @@ s.on('connection', function(ws) {
                 let question1 = new Message(game_state,'game','server',puzzle.question, game_saving).stringify();
         		broadcast(question1);
                 gameExit();    //turn off game mode in 20s
+
 		    }else if (!(game_state%100)){    //if it's 100, 200, 300, 400, 500
                 let msgToOthers = new Message(ws.clientId,'message',ws.personName,message.data, game_saving).stringify();
                 forward(msgToOthers);
@@ -72,13 +73,14 @@ s.on('connection', function(ws) {
                         game_saving = game_saving | 1;    //111111(63)
                         break
                     }
-                    game_state = game_state + 100;   //go to next level  
+                    game_state = game_state + 1;   //go to game intervel 
 
                     let winNote = new Message(999,'message','announcement',(ws.personName).concat(' got the right answer!'), game_saving).stringify();
                     let forceGameOver = new Message(game_state,'gameExit','server','Turn off game mode',game_saving).stringify();
 
                     //cancel setTimout loop, turn off game mode and broadcast winner
                     clearTimeout(gameCountDown);
+                    console.log("Countdown cancelled...");
                     broadcast(forceGameOver);
                     broadcast(winNote);              
                 }
@@ -125,9 +127,9 @@ s.on('connection', function(ws) {
     /*---------Function Declaration---------*/
     function gameExit(){       //Exit game mode after 20s
         gameCountDown = setTimeout(()=>{
-            game_state = game_state + 100;   //go to next level
-            let gameOver = new Message(game_state,'gameExit','server','Turn off game mode',game_saving).stringify();
-            broadcast(gameOver);
+                game_state = game_state + 1;   //go to game intervel
+                let gameOver = new Message(game_state,'gameExit','server','Turn off game mode',game_saving).stringify();
+                broadcast(gameOver);
         }, 20000);
     }
 
