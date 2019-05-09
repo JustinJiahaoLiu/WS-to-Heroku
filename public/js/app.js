@@ -1,7 +1,7 @@
 var HOST = location.origin.replace(/^http/, 'ws');
 var name = prompt("What's your name?");
 var socket = new WebSocket(HOST);
-
+var json;
 
 
 
@@ -23,7 +23,7 @@ socket.onopen = (event) => {
 
 socket.onmessage = (event) =>{
     console.log(event);
-    var json = JSON.parse(event.data);
+    json = JSON.parse(event.data);
     //console.log(json);
 
     /*------------Game Mode------------------*/
@@ -43,8 +43,9 @@ socket.onmessage = (event) =>{
             document.querySelector(".container").appendChild(elem);
         }else if(!((json.id - 1) % 100)){    //game intervel
             console.log("We are in");
-
-            gameContinue();
+            gameExit();
+            //Show next button!!
+            document.querySelector("#gameBoxNext").style.display = "block";
 
         }else{
             return; //new user joins under message mode
@@ -146,7 +147,7 @@ function gameStart(){
 }
 
 function gameContinue(){
-    var gameId = json.id + 99;       //go to next level
+     var gameId = json.id + 99;       //go to next level
     socket.send(JSON.stringify({
         id: gameId,        //secret id to initial game mode
         type: 'game',

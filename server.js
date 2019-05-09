@@ -76,7 +76,7 @@ s.on('connection', function(ws) {
                     game_state = game_state + 1;   //go to game intervel 
 
                     let winNote = new Message(999,'message','announcement',(ws.personName).concat(' got the right answer!'), game_saving).stringify();
-                    let forceGameOver = new Message(game_state,'gameExit','server','Turn off game mode',game_saving).stringify();
+                    let forceGameOver = new Message(game_state,'game','server','Turn off game mode',game_saving).stringify();
 
                     //cancel setTimout loop, turn off game mode and broadcast winner
                     clearTimeout(gameCountDown);
