@@ -49,7 +49,7 @@ socket.onmessage = (event) =>{
             //Set message to message mode
             gameExit();
             //Show next button!!
-            document.querySelector("#gameBoxNext").style.display = "block";
+            document.querySelector("#gameBoxNext").style.display = "";
 
         }else{
             return; //new user joins under message mode
