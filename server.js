@@ -128,7 +128,7 @@ s.on('connection', function(ws) {
     function gameExit(){       //Exit game mode after 20s
         gameCountDown = setTimeout(()=>{
                 game_state = game_state + 1;   //go to game intervel
-                let gameOver = new Message(game_state,'gameExit','server','Turn off game mode',game_saving).stringify();
+                let gameOver = new Message(game_state,'game','server','Turn off game mode',game_saving).stringify();
                 broadcast(gameOver);
         }, 20000);
     }

@@ -44,6 +44,9 @@ socket.onmessage = (event) =>{
         }else if(!((json.id - 1) % 100)){    //game intervel
             console.log("We are in");
             game_state = json.id;
+            //Disable game button!!
+            document.querySelector("#gameBox").style.display = "none";
+            //Set message to message mode
             gameExit();
             //Show next button!!
             document.querySelector("#gameBoxNext").style.display = "block";
