@@ -4,16 +4,34 @@
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebSockets Lab</title>
+	<link rel="icon" href="/chat-favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <body>
-    <div class="container">
 
-    </div>
+	<div class="spriteSheetRow">
+		<div class="guy-idle"></div>	
+		<div class="guy-feel-love"></div>
+		<div class="guy-in-love"></div>
+		<div class="guy-heartbroken"></div>
+	</div>
+	
+	<div class="heart"></div>
+	
+	<div class="spriteSheetRowGirl">
+		<div class="girl-idle"></div>	
+		<div class="girl-feel-love"></div>
+		<div class="girl-in-love"></div>
+		<div class="girl-heartbroken"></div>
+	</div>	
+	
+    <div class="container"></div>
+
 <!--jj-->
+
     <div class="messageBox">
         <input type="text" name="message" value="" placeholder="Enter message here" onkeydown="pressEnter(this)" >
         <button class="btn btn-primary" id="messageBtn" type="button" onclick="sendMsg()">Send</button>
@@ -32,4 +50,7 @@
     <script src="js/animation.js"></script>
 
 </body>
+<!--
+<div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+-->
 </html>
