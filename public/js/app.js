@@ -1,5 +1,5 @@
 var HOST = location.origin.replace(/^http/, 'ws');
-var name = prompt("What's your name?");
+//var name = prompt("What's your name?");
 var socket = new WebSocket(HOST);
 var game_state;
 

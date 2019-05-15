@@ -13,10 +13,10 @@
 <body>
 	<!------------Overlay---------------->
 	<div id="overlay">
-		<form id="clientName">
+		<form id="clientName" action="" onsubmit="openSocket();">
 			<label>Please enter your name</label>
-			<p style="color:red; font-size: 0.6em;">*Name can't be blank</p>
 			<input class="form-control form-control-lg" type="text" name="clientName" required>
+			<p id="nameError" style="color:red; font-size: 0.6em;" hidden>*Name can't be blank</p>
 			<button class="btn btn-lg btn-secondary">Submit</button>
 		</form>
 	</div>
