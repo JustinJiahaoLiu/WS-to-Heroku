@@ -132,7 +132,9 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 
 
 /*----------------------------------------------ANIMATION--------------------------------------------------------*/
-/*heart animation [https://codepen.io/nafeelmumtaz/pen/zLxyyQ]*/
+
+
+/*---------------------------heart animation [https://codepen.io/nafeelmumtaz/pen/zLxyyQ]------------------------*/
 .heart {
     position: absolute;
 	top: 5%;
@@ -179,7 +181,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
     }
   }
 
-/*sprite sheet animation row*/
+/*----------------------------------------------Sprite Sheet Animations-----------------------------------------*/
 .spriteSheetRow {
 	display:block;
 	position: absolute;
@@ -196,6 +198,23 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 
 /*sprite sheet animation guy and girl idle*/
 .guy-idle {
+	background:url(/images/guy-idle-position.png);
+	float: left;
+	width: 64px;
+	height: 99px;
+}
+
+.girl-idle {
+	background:url(/images/girl-idle-position.png);
+	float: right;
+	width: 61px;
+	height: 94px;
+}
+
+
+
+/*sprite sheet animation guy and girl walking*/
+.guy-walking {
 	background:url(/images/guy-sprite-sheet.png);
 	float: left;
 	width: calc(400px / 7);
@@ -210,7 +229,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 
 /*girl*/
 
-.girl-idle {
+.girl-walking {
 	background:url(/images/all-girl.png);
 	float: right;
 	width: calc(371px / 7);
@@ -310,7 +329,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 	to {background-position: 0px;}
 }
 
-/*Countdown*/
+/*--------------------------------------------------------------Countdown-----------------------------------------*/
 #countdown {
   position: relative;
   top: 175px;
