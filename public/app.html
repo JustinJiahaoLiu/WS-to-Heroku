@@ -11,34 +11,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <body>
-	<!------------Overlay---------------->
-	<div id="overlay">
-		<div id="clientName">
-			<label>Please enter your name</label>
-			<input id="inputName" class="form-control form-control-lg" type="text" name="clientName" value="" required>
-			<p id="nameError" style="color:red; font-size: 0.6em;display: none;">*Name can't be blank</p>
-			<button class="btn btn-lg btn-secondary" onclick="openSocket();">Submit</button>
-		</div>
-	</div>
-
-
 	<div class="spriteSheetRow">
 		<div class="guy-idle"></div>	
-		<div class="guy-walking"></div>	
 		<div class="guy-feel-love"></div>
 		<div class="guy-in-love"></div>
 		<div class="guy-heartbroken"></div>
 	</div>
 	
-	<div class="heart"></div>
+	<div class="heart" hidden></div>
 	
 	<div id="countdown"></div>
 	
     <div class="container"></div>
 	
 	<div class="spriteSheetRowGirl">
-		<div class="girl-idle"></div>
-		<div class="girl-walking"></div>	
+		<div class="girl-idle"></div>	
 		<div class="girl-feel-love"></div>
 		<div class="girl-in-love"></div>
 		<div class="girl-heartbroken"></div>
