@@ -1,10 +1,18 @@
 var HOST = location.origin.replace(/^http/, 'ws');
-//var name = prompt("What's your name?");
-var socket = new WebSocket(HOST);
+var name;
+var socket;
 var game_state;
 
 
-
+function openSocket(){
+    name = document.getElementById('inputName').value;
+    if(name=""){
+        document.getElementById('nameError').display = "";
+        return;
+    }else{
+        socket = new WebSocket(HOST);    //Open socket
+    }
+}
 
 //-----------Game Mode---------------
 
