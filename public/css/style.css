@@ -44,6 +44,16 @@ body{
 }
 
 
+.animationContainer {
+	width: 1400px;
+	height: 150px;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 20%);
+	zborder: solid black 1px;
+
+}
+
 .messageBox {
 	display: flex;
 	justify-content: center;
@@ -138,7 +148,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 .heart {
     position: absolute;
 	top: 5%;
-    left: 47.5%;							/*https://www.w3.org/Style/Examples/007/center.en.html*/
+    left: 46.5%;							/*https://www.w3.org/Style/Examples/007/center.en.html*/
     margin-right: -50%;
     transform: translate(-50%, -50%);
 	background-color: #f33244;
@@ -199,6 +209,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 /*sprite sheet animation guy and girl idle*/
 .guy-idle {
 	background:url(/images/guy-idle-position.png);
+	position: relative;
 	float: left;
 	width: 64px;
 	height: 99px;
@@ -206,6 +217,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 
 .girl-idle {
 	background:url(/images/girl-idle-position.png);
+	position: relative;
 	float: right;
 	width: 61px;
 	height: 94px;
@@ -216,6 +228,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 /*sprite sheet animation guy and girl walking*/
 .guy-walking {
 	background:url(/images/guy-sprite-sheet.png);
+	position: relative;
 	float: left;
 	width: calc(400px / 7);
 	height: 99px;
@@ -231,6 +244,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 
 .girl-walking {
 	background:url(/images/all-girl.png);
+	position: relative;
 	float: right;
 	width: calc(371px / 7);
 	height: 94px;
@@ -245,6 +259,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 /*sprite sheet animation guy and girl feel love*/
 .guy-feel-love {
 	background:url(/images/guy-feel-love.png);
+	position: relative;
 	float: left;
 	width: 64px;
 	height: 99px;
@@ -260,6 +275,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 
 .girl-feel-love {
 	background:url(/images/girl-feel-love.png);
+	position: relative;
 	float: right;
 	width: 60px;
 	height: 94px;
@@ -274,6 +290,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 /*sprite sheet animation guy and girl in love (license: [<a href="https://pngtree.com/">Graphics from pngtree.com</a>] )*/
 .guy-in-love {
 	background:url(/images/guy-in-love.png);
+	position: relative;
 	float: left;
 	width: calc(384px / 6);
 	height: 99px;
@@ -289,6 +306,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 
 .girl-in-love {
 	background:url(/images/girl-in-love.png);
+	position: relative;
 	float: right;
 	width: 64px;
 	height: 94px;
@@ -303,6 +321,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 /*sprite sheet animation guy and girl heartbroken*/
 .guy-heartbroken {
 	background:url(/images/guy-heartbroken.png);
+	position: relative;
 	float: left;
 	width: calc(384px / 6);
 	height: 99px;
@@ -318,6 +337,7 @@ input[type=text]:active, input[type=text]:focus {	/*no outline styling when the 
 
 .girl-heartbroken {
 	background:url(/images/girl-heartbroken.png);
+	position: relative;
 	float: right;
 	width: 64px;
 	height: 94px;
