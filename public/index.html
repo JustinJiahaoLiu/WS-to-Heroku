@@ -13,12 +13,12 @@
 <body>
 	<!------------Overlay---------------->
 	<div id="overlay">
-		<form id="clientName" action="" onsubmit="openSocket();">
+		<div id="clientName">
 			<label>Please enter your name</label>
-			<input id="inputName" class="form-control form-control-lg" type="text" name="clientName" required>
-			<p id="nameError" style="color:red; font-size: 0.6em;" hidden>*Name can't be blank</p>
-			<button class="btn btn-lg btn-secondary">Submit</button>
-		</form>
+			<input id="inputName" class="form-control form-control-lg" type="text" name="clientName" value="" required>
+			<p id="nameError" style="color:red; font-size: 0.6em;display: none;">*Name can't be blank</p>
+			<button class="btn btn-lg btn-secondary" onclick="openSocket();">Submit</button>
+		</div>
 	</div>
 
 
