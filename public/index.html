@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSockets Lab</title>
+	<link rel="icon" href="/chat-favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<body>
+	<!------------Overlay---------------->
+	<div id="overlay">
+		<form id="clientName" action="app.html" onsubmit="openSocket();">
+			<label>Please enter your name</label>
+			<input class="form-control form-control-lg" type="text" name="clientName" value="" required>
+			<p id="nameError" style="color:red; font-size: 0.6em;display: none;">*Name can't be blank</p>
+			<button class="btn btn-lg btn-secondary" >Submit</button>
+		</form>
+	</div>
+<script>
+	function openSocket(){
+    name = document.getElementById('inputName').value;
+    if(name==""){
+        document.getElementById('nameError').style.display = "";
+        return;
+    }
+}
+</script>
+</body>
+</html>
