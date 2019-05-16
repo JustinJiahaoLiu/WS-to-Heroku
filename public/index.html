@@ -13,59 +13,21 @@
 <body>
 	<!------------Overlay---------------->
 	<div id="overlay">
-		<div id="clientName">
+		<form id="clientName" action="app.html" onsubmit="openSocket();">
 			<label>Please enter your name</label>
-			<input id="inputName" class="form-control form-control-lg" type="text" name="clientName" value="" required>
+			<input class="form-control form-control-lg" type="text" name="clientName" value="" required>
 			<p id="nameError" style="color:red; font-size: 0.6em;display: none;">*Name can't be blank</p>
-			<button class="btn btn-lg btn-secondary" onclick="openSocket();">Submit</button>
-		</div>
+			<button class="btn btn-lg btn-secondary" >Submit</button>
+		</form>
 	</div>
-
-
-	<div class="spriteSheetRow">
-		<div class="guy-idle"></div>	
-		<div class="guy-feel-love"></div>
-		<div class="guy-in-love"></div>
-		<div class="guy-heartbroken"></div>
-	</div>
-	
-	<div class="heart"></div>
-	
-	<div id="countdown"></div>
-	
-    <div class="container"></div>
-	
-	<div class="spriteSheetRowGirl">
-		<div class="girl-idle"></div>	
-		<div class="girl-feel-love"></div>
-		<div class="girl-in-love"></div>
-		<div class="girl-heartbroken"></div>
-	</div>	
-	
-
-
-<!--jj-->
-
-    <div class="messageBox">
-        <input type="text" name="message" value="" placeholder="Enter message here" onkeydown="pressEnter(this)" >
-        <button class="btn btn-primary" id="messageBtn" type="button" onclick="sendMsg()">Send</button>
-    </div>
-
-    <br/>
-    <div class="messageBox" id="gameBox">
-        <button class="btn btn-secondary" type="button" onclick="gameStart()">Game Start</button>
-    </div>
-
-    <div class="messageBox" id="gameBoxNext" style="display: none;">
-        <button class="btn btn-secondary" type="button" onclick="gameContinue()" >Next</button>
-    </div>
-
-    <script src="js/app.js"></script>
-    <script src="js/animation.js"></script>
-	<script src="js/countdown.js"></script>
-
+<script>
+	function openSocket(){
+    name = document.getElementById('inputName').value;
+    if(name==""){
+        document.getElementById('nameError').style.display = "";
+        return;
+    }
+}
+</script>
 </body>
-<!--
-<div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
--->
 </html>
