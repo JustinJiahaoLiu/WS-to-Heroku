@@ -14,7 +14,9 @@ const server = express()
 const s = new SocketServer({ server });
 
 //custom components
+const data = require('./database/data.json');
 const Message = require('./core/Message');
+const Quiz = require('./core/Quiz');
 
 
 
