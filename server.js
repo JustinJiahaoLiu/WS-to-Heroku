@@ -25,6 +25,72 @@ var id_count = 0;
 var game_state = 999;	//Game state starts with 100, then 200, 300, 400 up to 500
 var game_saving = 32;    //binary 100000
 
+/*---------generate quiz-------------*/
+var quiz_easy = [];
+var quiz_medium = [];
+var quiz_hard = [];
+
+for(var i=0;i<data.length;i++){
+        if(data[i]['level'] == 'Easy'){
+            quiz_easy.push(data[i]);
+        }
+
+        if(data[i]['level'] == 'Medium'){
+            quiz_medium.push(data[i]);
+        }
+
+        if(data[i]['level'] == 'Hard'){
+            quiz_hard.push(data[i]);
+        }
+
+}
+
+//random quiz generation
+var quiz_pool = [];
+//question 1 easy
+quiz_pool.push(quiz_easy[Math.floor((Math.random()*quiz_easy.length) + 1)]);
+
+//question 2 medium
+quiz_pool.push(quiz_medium[Math.floor((Math.random()*quiz_medium.length) + 1)]);
+
+//question 3 hard
+quiz_pool.push(quiz_hard[Math.floor((Math.random()*quiz_hard.length) + 1)]);
+
+//question 4 random
+var rep = true;
+var rnd;
+//redundancy check
+while(rep){
+    rnd = Math.floor((Math.random()*data.length) + 1);
+    for(var i=0;i<quiz_pool.length;i++){
+        if(quiz_pool[i]['id'] == data[rnd]['id']){
+            break;
+        }else{
+            continue;
+        }
+    }
+    rep = false;
+}
+quiz_pool.push(data[rnd]);
+
+//question 5 random
+rep = true;
+//redundancy check
+while(rep){
+    rnd = Math.floor((Math.random()*data.length) + 1);
+    for(var i=0;i<quiz_pool.length;i++){
+        if(quiz_pool[i]['id'] == data[rnd]['id']){
+            break;
+        }else{
+            continue;
+        }
+    }
+    rep = false;
+}
+quiz_pool.push(data[rnd]);
+
+console.log(quiz_pool);
+
 
 //--------------Connection Success----------------------
 s.on('connection', function(ws) {
@@ -48,7 +114,7 @@ s.on('connection', function(ws) {
         if(message.type == "game"){
         	if(message.data == "this-will-activate-game-mode" && (message.id == 1 ||!((message.id-1)%100))){
         		game_state = (message.id - 1) + 100;  //Game starts here!!
-                let question1 = new Message(game_state,'game','server',puzzle.question, game_saving).stringify();
+                let question1 = new Message(game_state,'game','server',quiz_pool[0]['question'], game_saving).stringify();
         		broadcast(question1);
                 gameExit();    //turn off game mode in 20s
 
@@ -56,7 +122,9 @@ s.on('connection', function(ws) {
                 let msgToOthers = new Message(ws.clientId,'message',ws.personName,message.data, game_saving).stringify();
                 forward(msgToOthers);
                 //check if clients got the right answer
-                if(message.data == puzzle.answer){
+                var currentQuzi = (parseInt(game_state)/100)-1;
+
+                if(message.data.toLowerCase() == quiz_pool[currentQuzi]['answer'].toLowerCase()){
                     //save game 
                     switch(game_state){
                         case 100:

@@ -1,151 +1,151 @@
 [{
   "id": 1,
-  "question": "Cat from Outer Space, The",
-  "answer": "Children|Comedy|Sci-Fi",
-  "level": "Ford"
+  "question": "How many degrees are found in a circle?",
+  "answer": "360",
+  "level": "Easy"
 }, {
   "id": 2,
   "question": "Junk Mail (Budbringeren)",
-  "answer": "Comedy|Thriller",
-  "level": "Mercury"
+  "answer": "Comedy",
+  "level": "Easy"
 }, {
   "id": 3,
   "question": "Crimson Rivers 2: Angels of the Apocalypse (Rivières pourpres II - Les anges de l'apocalypse, Les)",
-  "answer": "Action|Crime|Thriller",
-  "level": "Honda"
+  "answer": "Action",
+  "level": "Easy"
 }, {
   "id": 4,
   "question": "Blue Valentine",
-  "answer": "Drama|Romance",
-  "level": "Nissan"
+  "answer": "Drama",
+  "level": "Easy"
 }, {
   "id": 5,
   "question": "Moderns, The",
   "answer": "Drama",
-  "level": "Toyota"
+  "level": "Easy"
 }, {
   "id": 6,
   "question": "Venom",
-  "answer": "Horror|Thriller",
-  "level": "Suzuki"
+  "answer": "Horror",
+  "level": "Easy"
 }, {
   "id": 7,
   "question": "Dikkenek",
   "answer": "Comedy",
-  "level": "Mazda"
+  "level": "Easy"
 }, {
   "id": 8,
   "question": "Cats Don't Dance",
-  "answer": "Animation|Children|Musical",
-  "level": "Acura"
+  "answer": "Animation",
+  "level": "Easy"
 }, {
   "id": 9,
   "question": "Mr. North",
-  "answer": "Comedy|Drama",
-  "level": "Ford"
+  "answer": "Comedy",
+  "level": "Easy"
 }, {
   "id": 10,
   "question": "13 Fighting Men",
   "answer": "Western",
-  "level": "Mazda"
+  "level": "Easy"
 }, {
   "id": 11,
   "question": "Primal",
-  "answer": "Horror|Thriller",
-  "level": "Audi"
+  "answer": "Horror",
+  "level": "Medium"
 }, {
   "id": 12,
   "question": "More Wild Wild West",
-  "answer": "Adventure|Comedy|Sci-Fi|Western",
-  "level": "Pontiac"
+  "answer": "Adventure",
+  "level": "Medium"
 }, {
   "id": 13,
   "question": "Merrill's Marauders",
-  "answer": "Adventure|Drama|War",
-  "level": "Volkswagen"
+  "answer": "Adventure",
+  "level": "Medium"
 }, {
   "id": 14,
   "question": "Isadora",
   "answer": "Drama",
-  "level": "GMC"
+  "level": "Medium"
 }, {
   "id": 15,
   "question": "Shop Around the Corner, The",
   "answer": "Comedy|Drama|Romance",
-  "level": "Kia"
+  "level": "Medium"
 }, {
   "id": 16,
   "question": "Absent (Ausente)",
-  "answer": "Drama|Thriller",
-  "level": "Chrysler"
+  "answer": "Drama",
+  "level": "Medium"
 }, {
   "id": 17,
   "question": "Escape Me Never",
   "answer": "Drama",
-  "level": "Chrysler"
+  "level": "Medium"
 }, {
   "id": 18,
   "question": "September",
   "answer": "Drama",
-  "level": "GMC"
+  "level": "Medium"
 }, {
   "id": 19,
   "question": "When Evening Falls on Bucharest or Metabolism",
-  "answer": "(no genres listed)",
-  "level": "Toyota"
+  "answer": "no",
+  "level": "Medium"
 }, {
   "id": 20,
   "question": "Die Fighting",
-  "answer": "Action|Thriller",
-  "level": "Volvo"
+  "answer": "Action",
+  "level": "Medium"
 }, {
   "id": 21,
   "question": "Anatomy (Anatomie)",
   "answer": "Horror",
-  "level": "Chevrolet"
+  "level": "Hard"
 }, {
   "id": 22,
   "question": "Serial (Bad) Weddings (Qu'est-ce Qu'on An Fit Au Bon Dieu?)",
-  "answer": "Comedy|Romance",
-  "level": "Toyota"
+  "answer": "Comedy",
+  "level": "Hard"
 }, {
   "id": 23,
   "question": "Bikini Summer",
   "answer": "Comedy",
-  "level": "Buick"
+  "level": "Hard"
 }, {
   "id": 24,
   "question": "Far Off Place, A",
-  "answer": "Adventure|Children|Drama|Romance",
-  "level": "Toyota"
+  "answer": "Adventure",
+  "level": "Hard"
 }, {
   "id": 25,
   "question": "Shadrach",
   "answer": "Drama",
-  "level": "Audi"
+  "level": "Hard"
 }, {
   "id": 26,
   "question": "Woodstock",
-  "answer": "Documentary|Musical",
-  "level": "Aptera"
+  "answer": "Documentary",
+  "level": "Hard"
 }, {
   "id": 27,
   "question": "71: Into The Fire (Pohwasogeuro)",
   "answer": "War",
-  "level": "Cadillac"
+  "level": "Hard"
 }, {
   "id": 28,
   "question": "Deterrence",
-  "answer": "Drama|Thriller",
-  "level": "Land Rover"
+  "answer": "Drama",
+  "level": "Hard"
 }, {
   "id": 29,
   "question": "Full Frontal",
-  "answer": "Comedy|Drama|Romance",
-  "level": "Volkswagen"
+  "answer": "Comedy",
+  "level": "Hard"
 }, {
   "id": 30,
   "question": "Forbidden Christ, The (Cristo proibito, Il)",
   "answer": "Drama",
-  "level": "Porsche"
+  "level": "Hard"
 }]
