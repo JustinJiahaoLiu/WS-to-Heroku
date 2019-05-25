@@ -151,6 +151,9 @@ s.on('connection', function(ws) {
                         broadcast(winNote);
                         let gameWon = new Message(999,'message','this-will-activate-game-won-mode','', game_saving).stringify();
                         broadcast(gameWon);
+                        //reset game
+                        game_state = 999;
+                        game_saving = 32;
                         return;
                     }
 
@@ -213,6 +216,9 @@ s.on('connection', function(ws) {
                 if(game_state >= 400 || (game_state>=300 && game_saving<48) || (game_state>=400 && game_saving<56)){    //ran out of games or failed 3 times
                     let gameLost = new Message(999,'message','this-will-activate-game-lost-mode','', game_saving).stringify();
                     broadcast(gameLost);
+                    //reset game
+                    game_state = 999;
+                    game_saving = 32;
                     return;
                 }
 
