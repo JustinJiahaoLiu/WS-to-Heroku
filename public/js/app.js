@@ -26,6 +26,7 @@ socket.onmessage = (event) =>{
         if(json.id != 999 && !(json.id % 100)){    //if id = 100, 200, 300, 400...
             //Disable game button!!
             document.querySelector("#gameBox").style.display = "none";
+            document.querySelector("#gameBoxNext").style.display = "none";
             //Set message to game mode
             document.querySelector("#messageBtn").setAttribute('onclick','gameMsg()');
             //check the current steps of the game status
@@ -35,6 +36,9 @@ socket.onmessage = (event) =>{
             elem.setAttribute("class", "game");
             elem.innerHTML = json.data;
             document.querySelector(".container").appendChild(elem);
+            //start countdown
+            gameCountdownON();
+
         }else if(!((json.id - 1) % 100)){    //game intervel
             console.log("We are in");
             game_state = json.id;
@@ -56,7 +60,7 @@ socket.onmessage = (event) =>{
     }else{
     /*------------Message Mode------------------*/
         //Game announcement
-        if(json.type == "message" && json.name == "announcement"){
+        if(json.type == "message" && json.name == "this-will-activate-announcement-mode"){
             let elem = document.createElement("h3");
             elem.setAttribute("class", "game");
             elem.innerHTML = "&#127881;" + json.data + "&#127881;";
@@ -64,6 +68,26 @@ socket.onmessage = (event) =>{
             autoScrollBottom();    //Autoscroll
             return;
         }
+        //Game won
+        if(json.type == "message" && json.name == "this-will-activate-game-won-mode"){
+            confeON();
+           //Set message to message mode
+            gameExit();
+            return;
+        }
+
+        //Game lost
+        if(json.type == "message" && json.name == "this-will-activate-game-lost-mode"){
+            let elem = document.createElement("h3");
+            elem.setAttribute("class", "game");
+            elem.innerHTML = "Sorry, you lost! Please try again.";
+            document.querySelector(".container").appendChild(elem);
+            autoScrollBottom();    //Autoscroll
+            //Set message to message mode
+            gameExit();
+            return;
+        }
+
         //when client left
         if(json.type == "message" && json.data == "left"){
             let elem = document.createElement("p");
@@ -156,6 +180,8 @@ function gameContinue(){
 
 function gameExit(){
     document.querySelector("#messageBtn").setAttribute('onclick','sendMsg()');
+    //close countdown
+    gameCountdownOFF();
 }
 
 function pressEnter(ele) {
