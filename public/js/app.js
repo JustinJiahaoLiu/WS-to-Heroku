@@ -27,6 +27,9 @@ socket.onmessage = (event) =>{
             //Disable game button!!
             document.querySelector("#gameBox").style.display = "none";
             document.querySelector("#gameBoxNext").style.display = "none";
+            //remove heart
+            document.querySelector('.heart').style.display = "none";
+
             //Set message to game mode
             document.querySelector("#messageBtn").setAttribute('onclick','gameMsg()');
             //check the current steps of the game status
@@ -40,7 +43,6 @@ socket.onmessage = (event) =>{
             gameCountdownON();
 
         }else if(!((json.id - 1) % 100)){    //game intervel
-            console.log("We are in");
             game_state = json.id;
             //Disable game button!!
             document.querySelector("#gameBox").style.display = "none";
@@ -71,6 +73,8 @@ socket.onmessage = (event) =>{
         //Game won
         if(json.type == "message" && json.name == "this-will-activate-game-won-mode"){
             confeON();
+            //show heart
+            document.querySelector('.heart').style.display = "";
            //Set message to message mode
             gameExit();
             return;
@@ -166,6 +170,8 @@ function gameStart(){
         data: "this-will-activate-game-mode"        //secret key
     }));
     document.querySelector("#gameBox").style.display = "none";
+    //remove heart
+    document.querySelector('.heart').style.display = "none";
 }
 
 function gameContinue(){

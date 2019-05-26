@@ -164,7 +164,6 @@ s.on('connection', function(ws) {
                     var winner = new Winner(ws.clientId, ws.personName, timeDiff);
                     winner_pool.push(winner);
                     console.log(winner_pool);
-                    console.log(winner_pool['0'].name);
 
                     let winNote = new Message(999,'message','this-will-activate-announcement-mode',(ws.personName).concat(' got the right answer!'), game_saving).stringify();
                     let forceGameOver = new Message(game_state,'game','server','Turn off game mode',game_saving).stringify();
