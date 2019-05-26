@@ -16,7 +16,7 @@ const s = new SocketServer({ server });
 //custom components
 const data = require('./database/data.json');
 const Message = require('./core/Message');
-const Quiz = require('./core/Quiz');
+const Winner = require('./core/Winner');
 
 
 /*---------server global setting----------*/
@@ -31,15 +31,15 @@ var quiz_medium = [];
 var quiz_hard = [];
 
 for(var i=0;i<data.length;i++){
-        if(data[i]['level'] == 'Easy'){
+        if(data[i].level == 'Easy'){
             quiz_easy.push(data[i]);
         }
 
-        if(data[i]['level'] == 'Medium'){
+        if(data[i].level == 'Medium'){
             quiz_medium.push(data[i]);
         }
 
-        if(data[i]['level'] == 'Hard'){
+        if(data[i].level == 'Hard'){
             quiz_hard.push(data[i]);
         }
  
@@ -47,49 +47,58 @@ for(var i=0;i<data.length;i++){
 
 //random quiz generation
 var quiz_pool = [];
-//question 1 easy
-quiz_pool.push(quiz_easy[Math.floor((Math.random()*quiz_easy.length) + 1)]);
+quizPoolGen();
 
-//question 2 medium
-quiz_pool.push(quiz_medium[Math.floor((Math.random()*quiz_medium.length) + 1)]);
+//initialise winner pool
+var winner_pool = [];
 
-//question 3 hard
-quiz_pool.push(quiz_hard[Math.floor((Math.random()*quiz_hard.length) + 1)]);
+/*-------------------quiz pool generation---------------*/
+function quizPoolGen(){
+    //question 1 easy
+    quiz_pool.push(quiz_easy[Math.floor((Math.random()*quiz_easy.length) + 1)]);
 
-//question 4 random
-var rep = true;
-var rnd;
-//redundancy check
-while(rep){
-    rnd = Math.floor((Math.random()*data.length) + 1);
-    for(var i=0;i<quiz_pool.length;i++){
-        if(quiz_pool[i]['id'] == data[rnd]['id']){
-            break;
-        }else{
-            continue;
+    //question 2 medium
+    quiz_pool.push(quiz_medium[Math.floor((Math.random()*quiz_medium.length) + 1)]);
+
+    //question 3 hard
+    quiz_pool.push(quiz_hard[Math.floor((Math.random()*quiz_hard.length) + 1)]);
+
+    //question 4 random
+    var rep = true;
+    var rnd;
+    //redundancy check
+    while(rep){
+        rnd = Math.floor((Math.random()*data.length) + 1);
+        for(var i=0;i<quiz_pool.length;i++){
+            if(quiz_pool[i].id == data[rnd].id){
+                break;
+            }else{
+                continue;
+            }
         }
+        rep = false;
     }
-    rep = false;
-}
-quiz_pool.push(data[rnd]);
+    quiz_pool.push(data[rnd]);
 
-//question 5 random
-rep = true;
-//redundancy check
-while(rep){
-    rnd = Math.floor((Math.random()*data.length) + 1);
-    for(var i=0;i<quiz_pool.length;i++){
-        if(quiz_pool[i]['id'] == data[rnd]['id']){
-            break;
-        }else{
-            continue;
+    //question 5 random
+    rep = true;
+    //redundancy check
+    while(rep){
+        rnd = Math.floor((Math.random()*data.length) + 1);
+        for(var i=0;i<quiz_pool.length;i++){
+            if(quiz_pool[i].id == data[rnd].id){
+                break;
+            }else{
+                continue;
+            }
         }
+        rep = false;
     }
-    rep = false;
-}
-quiz_pool.push(data[rnd]);
+    quiz_pool.push(data[rnd]);
 
-console.log(quiz_pool);
+    console.log(quiz_pool);
+
+}
 
 
 //--------------Connection Success----------------------
@@ -99,6 +108,7 @@ s.on('connection', function(ws) {
     id_count++;
     ws.personName = "";
     var gameCountDown = null;
+    var startTime, endTime;
 
     /*---------on Message----------*/
     ws.on('message', function (message) {
@@ -109,9 +119,13 @@ s.on('connection', function(ws) {
         if(message.type == "game"){
         	if(message.data == "this-will-activate-game-mode" && (message.id == 1)){
         		game_state = (message.id - 1) + 100;  //Game starts here!!
-                let question1 = new Message(game_state,'game','server',quiz_pool[0]['question'], game_saving).stringify();
-        		broadcast(question1);
-                gameExit();    //turn off game mode in 20s
+                let question1 = new Message(game_state,'game','server',quiz_pool[0].question, game_saving).stringify();
+        		//wait for the animation finsihes in 3s
+                setTimeout(function(){
+                    broadcast(question1);
+                    gameExit();    //turn off game mode in 20s
+                    startTime = new Date();    //internal timer on
+                }, 3000);
 
 		    }else if (!(game_state%100)){    //if it's 100, 200, 300, 400,500
                 let msgToOthers = new Message(ws.clientId,'message',ws.personName,message.data, game_saving).stringify();
@@ -119,7 +133,7 @@ s.on('connection', function(ws) {
                 //check if clients got the right answer
                 let currentQuzi = (parseInt(game_state)/100)-1;
 
-                if(message.data.toLowerCase() == quiz_pool[currentQuzi]['answer'].toLowerCase()){
+                if(message.data.toLowerCase() == quiz_pool[currentQuzi].answer.toLowerCase()){
                     //save game 
                     switch(game_state){
                         case 100:
@@ -140,6 +154,18 @@ s.on('connection', function(ws) {
                     }
                     game_state = game_state + 1;   //go to game intervel 
 
+                    //stop internal timer
+                    endTime = new Date();
+                    var timeDiff = endTime - startTime; //in ms
+                    // strip the ms
+                    timeDiff /= 1000;
+
+                    //generate winner and push to winner pool
+                    var winner = new Winner(ws.clientId, ws.personName, timeDiff);
+                    winner_pool.push(winner);
+                    console.log(winner_pool);
+                    console.log(winner_pool['0'].name);
+
                     let winNote = new Message(999,'message','this-will-activate-announcement-mode',(ws.personName).concat(' got the right answer!'), game_saving).stringify();
                     let forceGameOver = new Message(game_state,'game','server','Turn off game mode',game_saving).stringify();
 
@@ -154,6 +180,11 @@ s.on('connection', function(ws) {
                         //reset game
                         game_state = 999;
                         game_saving = 32;
+                        quiz_pool = [];
+                        quizPoolGen();
+                        winner_pool = [];
+                        startTime = null;
+                        endTime = null;
                         return;
                     }
 
@@ -166,9 +197,10 @@ s.on('connection', function(ws) {
             }else if (message.data == "this-will-activate-game-mode" && !((message.id-1)%100)){    //if it's 101, 201, 301, 401, 501
                 let current = ((parseInt(game_state)-1)/100);
                 game_state = (message.id - 1) + 100;  //Next game on
-                let question = new Message(game_state,'game','server',quiz_pool[current]['question'], game_saving).stringify();
+                let question = new Message(game_state,'game','server',quiz_pool[current].question, game_saving).stringify();
                 broadcast(question);
                 gameExit();    //turn off game mode in 20s
+                startTime = new Date();    //internal timer on
             }
 
 		}else{
@@ -219,6 +251,11 @@ s.on('connection', function(ws) {
                     //reset game
                     game_state = 999;
                     game_saving = 32;
+                    quiz_pool = [];
+                    quizPoolGen();
+                    winner_pool = [];
+                    startTime = null;
+                    endTime = null;
                     return;
                 }
 
