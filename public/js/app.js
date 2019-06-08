@@ -87,6 +87,8 @@ socket.onmessage = (event) =>{
         //Game Over
         if(json.type == "message" && json.name == "this-will-activate-game-over-mode"){
             console.log(json.data);
+            gameExit();
+            return;
         }
 
         // //Game won

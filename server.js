@@ -58,20 +58,20 @@ var winner_pool = [];
 /*-------------------quiz pool generation---------------*/
 function quizPoolGen(){
     //question 1 easy
-    quiz_pool.push(quiz_easy[Math.floor((Math.random()*quiz_easy.length) + 1)]);
+    quiz_pool.push(quiz_easy[Math.floor((Math.random()*quiz_easy.length))]);
 
     //question 2 medium
-    quiz_pool.push(quiz_medium[Math.floor((Math.random()*quiz_medium.length) + 1)]);
+    quiz_pool.push(quiz_medium[Math.floor((Math.random()*quiz_medium.length))]);
 
     //question 3 hard
-    quiz_pool.push(quiz_hard[Math.floor((Math.random()*quiz_hard.length) + 1)]);
+    quiz_pool.push(quiz_hard[Math.floor((Math.random()*quiz_hard.length))]);
 
     //question 4 random
     var rep = true;
     var rnd;
     //redundancy check
     do{
-        rnd = Math.floor((Math.random()*data.length) + 1);
+        rnd = Math.floor((Math.random()*data.length));
         for(var i=0;i<3;i++){
             if(quiz_pool[i].id == data[rnd].id){
                 rep=true;
@@ -86,7 +86,7 @@ function quizPoolGen(){
     rep = true;
     //redundancy check
     while(rep){
-        rnd = Math.floor((Math.random()*data.length) + 1);
+        rnd = Math.floor((Math.random()*data.length));
         for(var i=0;i<quiz_pool.length;i++){
             if(quiz_pool[i].id == data[rnd].id){
                 break;
@@ -154,9 +154,7 @@ s.on('connection', function(ws) {
                     //stop internal timer
                     endTime = new Date();
                     var timeDiff = endTime - startTime; //in ms
-                    console.log("start time: " + startTime);
-                    console.log("end time: " + endTime);
-                    console.log("time diff: " + timeDiff);
+
                     // strip the ms
                     timeDiff /= 1000;
 
