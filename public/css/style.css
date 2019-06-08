@@ -12,9 +12,22 @@ body{
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #b4b6e7;
+	background-color: rgba(0,0,0,0.5);
 	z-index: 2;
 	cursor: pointer;
+}
+
+#inner-overlay{
+	position: absolute;
+    width: 26em;
+    height: 42em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+	right: 0;
+	bottom: 0;
+	background-color: #b4b6e7;
+	z-index: 3;
 }
 
 #clientName{

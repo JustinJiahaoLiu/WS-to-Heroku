@@ -73,11 +73,11 @@ function quizPoolGen(){
     do{
         rnd = Math.floor((Math.random()*data.length));
         for(var i=0;i<3;i++){
+            rep = false;
             if(quiz_pool[i].id == data[rnd].id){
                 rep=true;
                 break;
             }
-            rep = false;
         }
     }while(rep);
     quiz_pool.push(data[rnd]);

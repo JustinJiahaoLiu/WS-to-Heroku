@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <body>
 	<div class="messageBox mt-5" id="gameBox">
         <button class="btn btn-secondary" type="button" onclick="gameStart()" >Game Start</button>
@@ -26,6 +27,13 @@
     <div class="messageBox">
         <input type="text" name="message" value="" placeholder="Enter message here" onkeydown="pressEnter(this)" autofocus>
         <button class="btn btn-primary" id="messageBtn" type="button" onclick="sendMsg()">Send</button>
+    </div>
+
+    <div id="overlay" onclick="overlayOff()" style="display:none">
+    	<div id="inner-overlay">
+    		<h1 class="text-center" style="color:#54517d">Winners List</h1>
+    		<canvas id="myChart" width="400" height="400"></canvas>
+    	</div>
     </div>
 
     <script src="js/app.js"></script>

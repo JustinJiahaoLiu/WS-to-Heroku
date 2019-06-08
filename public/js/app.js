@@ -3,6 +3,7 @@ var HOST = location.origin.replace(/^http/, 'ws');
 var name = urlParams.get('clientName');
 var socket = new WebSocket(HOST);;
 var game_state;
+var winner_pool;
 
 
  //Send client name to srever
@@ -91,8 +92,13 @@ socket.onmessage = (event) =>{
 
         //Game Over
         if(json.type == "message" && json.name == "this-will-activate-game-over-mode"){
-            console.log(json.data);
+            winner_pool = json.data;
             gameExit();
+
+            //Display overlay
+            overlayOn();
+            generateRank();
+            confeON();
             return;
         }
 
@@ -252,4 +258,78 @@ function forceGameReset(){
         type: 'game',
         data: "this-will-reset-game"        //secret key
     }));
+}
+
+//----------------Overlay-------------------------
+function overlayOn(){
+    document.getElementById("overlay").style.display = "block";
+}
+
+function overlayOff(){
+    document.getElementById("overlay").style.display = "none";
+}
+
+function generateRank(){
+    //Sort winners from quickest to slowest
+    winner_pool.sort(function(a,b){return a.result - b.result;});
+    
+    //winner_pool = [];
+
+    //Fill dummy
+    for(var i = 0; i<5 ; i++){
+        if(winner_pool[i] == undefined){
+            winner_pool[i] = {
+                id: '',
+                name: 'Placeholder',
+                result: 20,
+            }
+        }
+    }
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: ['1st Place ' + winner_pool[0]['name'], '2nd Place ' + winner_pool[1]['name'], '3rd Place ' + winner_pool[2]['name'], '4th Place ' + winner_pool[3]['name'], '5th Place '+ winner_pool[4]['name']],
+            datasets: [{
+                label: 'Winners',
+                data: [winner_pool[0]['result'], winner_pool[1]['result'], winner_pool[2]['result'], winner_pool[3]['result'], winner_pool[4]['result']],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            },
+        }
+    });
 }
