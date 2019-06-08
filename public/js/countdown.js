@@ -22,6 +22,7 @@ function gameCountdownON(){
 
  		 		countdownNumberEl.textContent = countdown;
 			}, 1000);
+	countdownBox.style.display = '';
 }
 
 function gameCountdownOFF(){
@@ -31,4 +32,5 @@ function gameCountdownOFF(){
 	}
 	countdown = 20; //reset countdown
 	clearInterval(timer);	//reset countdown timer
+	countdownBox.style.display = 'none';
 }

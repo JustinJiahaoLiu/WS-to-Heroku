@@ -27,8 +27,6 @@ socket.onmessage = (event) =>{
             //Disable game button!!
             document.querySelector("#gameBox").style.display = "none";
             document.querySelector("#gameBoxNext").style.display = "none";
-            //remove heart
-            document.querySelector('.heart').style.display = "none";
 
             //Set message to game mode
             document.querySelector("#messageBtn").setAttribute('onclick','gameMsg()');
@@ -62,6 +60,12 @@ socket.onmessage = (event) =>{
     }else{
     /*------------Message Mode------------------*/
         //Game announcement
+        if(json.type == "message" && json.name == "this-will-change-client-name"){
+            name = json.data;
+            return;
+        }
+
+        //Game announcement
         if(json.type == "message" && json.name == "this-will-activate-announcement-mode"){
             let elem = document.createElement("h3");
             elem.setAttribute("class", "game");
@@ -70,27 +74,40 @@ socket.onmessage = (event) =>{
             autoScrollBottom();    //Autoscroll
             return;
         }
-        //Game won
-        if(json.type == "message" && json.name == "this-will-activate-game-won-mode"){
+
+        //Winner confetti
+        if(json.type == "message" && json.name == "this-will-activate-confetti"){
             confeON();
-            //show heart
-            document.querySelector('.heart').style.display = "";
            //Set message to message mode
             gameExit();
             return;
         }
 
-        //Game lost
-        if(json.type == "message" && json.name == "this-will-activate-game-lost-mode"){
-            let elem = document.createElement("h3");
-            elem.setAttribute("class", "game");
-            elem.innerHTML = "Sorry, you lost! Please try again.";
-            document.querySelector(".container").appendChild(elem);
-            autoScrollBottom();    //Autoscroll
-            //Set message to message mode
-            gameExit();
-            return;
+
+        //Game Over
+        if(json.type == "message" && json.name == "this-will-activate-game-over-mode"){
+            console.log(json.data);
         }
+
+        // //Game won
+        // if(json.type == "message" && json.name == "this-will-activate-game-won-mode"){
+        //     confeON();
+        //    //Set message to message mode
+        //     gameExit();
+        //     return;
+        // }
+
+        // //Game lost
+        // if(json.type == "message" && json.name == "this-will-activate-game-lost-mode"){
+        //     let elem = document.createElement("h3");
+        //     elem.setAttribute("class", "game");
+        //     elem.innerHTML = "Sorry, you lost! Please try again.";
+        //     document.querySelector(".container").appendChild(elem);
+        //     autoScrollBottom();    //Autoscroll
+        //     //Set message to message mode
+        //     gameExit();
+        //     return;
+        // }
 
         //when client left
         if(json.type == "message" && json.data == "left"){
@@ -125,7 +142,7 @@ function sendMsg(){
     //Add the message to screen locally
     var elem = document.createElement("li");
     elem.setAttribute("class", "myself");
-    elem.innerHTML = "You: " + msg;
+    elem.innerHTML = name + ": " + msg;
     document.querySelector(".container").appendChild(elem);
 
     //Send the msg to server
@@ -148,7 +165,7 @@ function gameMsg(){
     //Add the message to screen locally
     var elem = document.createElement("li");
     elem.setAttribute("class", "myself");
-    elem.innerHTML = "You: " + msg;
+    elem.innerHTML = name + ": " + msg;
     document.querySelector(".container").appendChild(elem);
 
     //Send the msg to server
@@ -164,24 +181,38 @@ function gameMsg(){
 }
 
 function gameStart(){
-    socket.send(JSON.stringify({
+    var debouncer;
+    document.querySelector("#gameBox").style.display = "none";
+    (function(debouncer){
+        if(debouncer){
+            clearTimeout(debouncer);
+        }
+
+        debouncer = setTimeout(socket.send(JSON.stringify({
         id: 1,        //secret id to initial game mode
         type: 'game',
         data: "this-will-activate-game-mode"        //secret key
-    }));
-    document.querySelector("#gameBox").style.display = "none";
-    //remove heart
-    document.querySelector('.heart').style.display = "none";
+    })) , 1000);
+        
+    }());    
 }
 
 function gameContinue(){
+     var debouncer;
      var gameId = game_state;       //go to next level
-    socket.send(JSON.stringify({
+     document.querySelector("#gameBoxNext").style.display = "none";
+     (function(debouncer){
+        if(debouncer){
+            clearTimeout(debouncer);
+        }
+
+        debouncer = setTimeout(socket.send(JSON.stringify({
         id: gameId,        //secret id to initial game mode
         type: 'game',
         data: "this-will-activate-game-mode"        //secret key
-    }));
-    document.querySelector("#gameBoxNext").style.display = "none";
+    })) , 1000);
+        
+    }());    
 }
 
 function gameExit(){
