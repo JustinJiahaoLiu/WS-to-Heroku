@@ -1,151 +1,151 @@
 [{
   "id": 1,
-  "question": "How many degrees are found in a circle?",
-  "answer": "360",
+  "question": "Danish brothers Lars and Jens Rasmussen developed a platform in their start-up company Where 2, which after being taken over by an internet giant became what?",
+  "answer": "Google Maps",
   "level": "Easy"
 }, {
   "id": 2,
-  "question": "Junk Mail (Budbringeren)",
-  "answer": "Comedy",
+  "question": "How many countries are larger than Australia?",
+  "answer": "5",
   "level": "Easy"
 }, {
   "id": 3,
-  "question": "Crimson Rivers 2: Angels of the Apocalypse (Rivières pourpres II - Les anges de l'apocalypse, Les)",
-  "answer": "Action",
+  "question": "In what city did the Commonwealth Parliament first sit?",
+  "answer": "Melbourne",
   "level": "Easy"
 }, {
   "id": 4,
-  "question": "Blue Valentine",
-  "answer": "Drama",
+  "question": "How many states and territories in total are there in Australia?",
+  "answer": "8",
   "level": "Easy"
 }, {
   "id": 5,
-  "question": "Moderns, The",
-  "answer": "Drama",
+  "question": "Which is the largest Australian State in terms of area?(Abrreviation)",
+  "answer": "WA",
   "level": "Easy"
 }, {
   "id": 6,
-  "question": "Venom",
-  "answer": "Horror",
+  "question": "Which food product rich in vitamin B did Cyril Callister develop?",
+  "answer": "Vegemite",
   "level": "Easy"
 }, {
   "id": 7,
-  "question": "Dikkenek",
-  "answer": "Comedy",
+  "question": "Who was the first Australian to have a No. 1 international hit song, with a version of \"A Pub with No Beer\"?",
+  "answer": "Slim Dusty",
   "level": "Easy"
 }, {
   "id": 8,
-  "question": "Cats Don't Dance",
-  "answer": "Animation",
+  "question": "Which venue has hosted the Australian Open since 1988?",
+  "answer": "Melbourne Park",
   "level": "Easy"
 }, {
   "id": 9,
-  "question": "Mr. North",
-  "answer": "Comedy",
+  "question": "Actress born in 1967 whose first film was Bush Christmas but came to prominence in the film Dead Calm.",
+  "answer": "Nicole Kidman",
   "level": "Easy"
 }, {
   "id": 10,
-  "question": "13 Fighting Men",
-  "answer": "Western",
+  "question": "Hugh Jackman was born in which city?",
+  "answer": "Sydney",
   "level": "Easy"
 }, {
   "id": 11,
-  "question": "Primal",
-  "answer": "Horror",
+  "question": "In what year was Advance Australia Fair proclaimed as the national anthem by the Governor-General?",
+  "answer": "1984",
   "level": "Medium"
 }, {
   "id": 12,
-  "question": "More Wild Wild West",
-  "answer": "Adventure",
+  "question": "What Australian company is the largest surfwear manufacturer?",
+  "answer": "Quicksilver",
   "level": "Medium"
 }, {
   "id": 13,
-  "question": "Merrill's Marauders",
-  "answer": "Adventure",
+  "question": "How many gold medals did Australians win at the 2002 Winter Olympic Games?",
+  "answer": "2",
   "level": "Medium"
 }, {
   "id": 14,
-  "question": "Isadora",
-  "answer": "Drama",
+  "question": "Which is the second largest city in NSW?",
+  "answer": "Newcastle",
   "level": "Medium"
 }, {
   "id": 15,
-  "question": "Shop Around the Corner, The",
-  "answer": "Comedy|Drama|Romance",
+  "question": "How much of Australia is classified as desert in percentage?",
+  "answer": "35%",
   "level": "Medium"
 }, {
   "id": 16,
-  "question": "Absent (Ausente)",
-  "answer": "Drama",
+  "question": "What animal is on the right of the Australian Commonwealth Coat of Arms?",
+  "answer": "Emu",
   "level": "Medium"
 }, {
   "id": 17,
-  "question": "Escape Me Never",
-  "answer": "Drama",
+  "question": "How many ships were in the First Fleet?",
+  "answer": "11",
   "level": "Medium"
 }, {
   "id": 18,
-  "question": "September",
-  "answer": "Drama",
+  "question": "Who was Australia's longest serving Prime Minister?",
+  "answer": "Robert Menzies",
   "level": "Medium"
 }, {
   "id": 19,
-  "question": "When Evening Falls on Bucharest or Metabolism",
-  "answer": "no",
+  "question": "In what year was gold first discovered in Victoria and NSW to begin the “Gold Rush”?",
+  "answer": "1851",
   "level": "Medium"
 }, {
   "id": 20,
-  "question": "Die Fighting",
-  "answer": "Action",
+  "question": "The Australian Senate has how many members?",
+  "answer": "76",
   "level": "Medium"
 }, {
   "id": 21,
-  "question": "Anatomy (Anatomie)",
-  "answer": "Horror",
+  "question": "Cate Blanchett has received an Academy Award nomination for what movie?",
+  "answer": "Elizabeth",
   "level": "Hard"
 }, {
   "id": 22,
-  "question": "Serial (Bad) Weddings (Qu'est-ce Qu'on An Fit Au Bon Dieu?)",
-  "answer": "Comedy",
+  "question": "What is Kylie Minogue’s lingerie line called?",
+  "answer": "Love Kylie",
   "level": "Hard"
 }, {
   "id": 23,
-  "question": "Bikini Summer",
-  "answer": "Comedy",
+  "question": "In what year did Captain Arthur Phillip and the First Fleet arrive at Botany Bay?",
+  "answer": "1788",
   "level": "Hard"
 }, {
   "id": 24,
-  "question": "Far Off Place, A",
-  "answer": "Adventure",
+  "question": "In what year was decimal currency introduced?",
+  "answer": "1966",
   "level": "Hard"
 }, {
   "id": 25,
-  "question": "Shadrach",
-  "answer": "Drama",
+  "question": "Who designed the Sydney Opera House?",
+  "answer": "Joern Utzon",
   "level": "Hard"
 }, {
   "id": 26,
-  "question": "Woodstock",
-  "answer": "Documentary",
+  "question": "Name Australia’s western-most point?",
+  "answer": "Steep Point",
   "level": "Hard"
 }, {
   "id": 27,
-  "question": "71: Into The Fire (Pohwasogeuro)",
-  "answer": "War",
+  "question": "What creature does Jana Pittman have tattooed on her body?",
+  "answer": "Bee",
   "level": "Hard"
 }, {
   "id": 28,
-  "question": "Deterrence",
-  "answer": "Drama",
+  "question": "Who became Olympic champion for the women's 400 metres at the 2000 Summer Olympics?",
+  "answer": "Cathy Freeman",
   "level": "Hard"
 }, {
   "id": 29,
-  "question": "Full Frontal",
-  "answer": "Comedy",
-  "level": "Hard"
+  "question": "Bon Scott became the lead singer of which band from 1974 until his death in 1980?",
+  "answer": "AC/DC",
+  "level": ""
 }, {
   "id": 30,
-  "question": "Forbidden Christ, The (Cristo proibito, Il)",
-  "answer": "Drama",
+  "question": "2017 was a great year for Ed Sheeran, how many singles did he have in the top 10 best selling singles of the year?",
+  "answer": "4",
   "level": "Hard"
 }]
