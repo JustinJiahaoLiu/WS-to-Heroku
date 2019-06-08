@@ -59,10 +59,15 @@ socket.onmessage = (event) =>{
 
     }else{
     /*------------Message Mode------------------*/
-        //Game announcement
+        //Change client name
         if(json.type == "message" && json.name == "this-will-change-client-name"){
             name = json.data;
             return;
+        }
+
+        //Force game reset
+        if(json.type == "message" && json.name == "this-will-reset-game"&& json.id == 1024){
+            window.location.reload();
         }
 
         //Game announcement
@@ -238,4 +243,13 @@ function autoScrollBottom(){
     //scroll chat box to bottom
     var chatBox = document.querySelector(".container");
     chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function forceGameReset(){
+
+    socket.send(JSON.stringify({
+        id: 1024,        //secret id to initial game mode
+        type: 'game',
+        data: "this-will-reset-game"        //secret key
+    }));
 }

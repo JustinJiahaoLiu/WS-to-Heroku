@@ -117,6 +117,23 @@ s.on('connection', function(ws) {
 
         /*------------Game Mode-------------*/
         if(message.type == "game"){
+
+            //Force game reset
+            if(message.data == "this-will-reset-game" && (message.id == 1024)){
+                //reset game
+                game_state = 999;
+                game_saving = 32;
+                quiz_pool = [];
+                quizPoolGen();
+                winner_pool = [];
+                startTime = null;
+                endTime = null;
+                let resetGame = new Message(1024,'message','this-will-reset-game',"", game_saving).stringify();
+                broadcast(resetGame);
+                return;
+            }
+
+            //nomal game flow
         	if(message.data == "this-will-activate-game-mode" && (message.id == 1)){
         		game_state = (message.id - 1) + 100;  //Game starts here!!
                 let question1 = new Message(game_state,'game','server',quiz_pool[0].question, game_saving).stringify();
@@ -167,7 +184,7 @@ s.on('connection', function(ws) {
                     let forceGameOver = new Message(game_state,'game','server','Turn off game mode',game_saving).stringify();
 
                     /*----Game Over------*/
-                    if(game_state > 500){    //the 5th game
+                    if(game_state >= 500){    //the 5th game
                         //cancel setTimout loop, broadcast winner
                         clearTimeout(gameCountDown);
                         console.log("Countdown cancelled...");
@@ -245,7 +262,7 @@ s.on('connection', function(ws) {
     function gameExit(answer){       //Exit game mode after 20s
         gameCountDown = setTimeout(()=>{
                 /*----Game Over------*/
-                if(game_state > 500){    //ran out of games
+                if(game_state >= 500){    //ran out of games
                     let gameOver = new Message(999,'message','this-will-activate-game-over-mode',winner_pool, game_saving).stringify(); 
                     broadcast(gameOver);
                     //reset game
