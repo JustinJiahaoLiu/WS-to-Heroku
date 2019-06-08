@@ -20,7 +20,7 @@ body{
 #inner-overlay{
 	position: absolute;
     width: 26em;
-    height: 42em;
+    height: 30em;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
