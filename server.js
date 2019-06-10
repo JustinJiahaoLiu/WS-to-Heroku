@@ -221,6 +221,12 @@ s.on('connection', function(ws) {
 
 		}else{
 		/*------------Message Mode-------------*/
+
+            //Heartbeat
+            if(message.type == "heartbeat"){
+                return;
+            }
+
 	        //Fetch name of client
 	        if(message.type == 'name'){
 

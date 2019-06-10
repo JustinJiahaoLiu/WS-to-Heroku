@@ -13,6 +13,13 @@ socket.onopen = (event) => {
         type:'name',
         data: name
     }));
+
+    /*-----------------------Heartbeat---------------------
+      -----------------Preventing Disconnection------------*/
+      setInterval(function(){socket.send(JSON.stringify({
+        type:'heartbeat',
+        data: name
+        }))} , 28000);
 };
 
 
